@@ -199,8 +199,17 @@ bs = {
 	},
 	fetchSiteList: function () {
 	  $.get(bs.url,{mode:'getSiteList'}, function(data){
+<<<<<<< local
+=======
 			$('#searchSites').append(data);
+>>>>>>> other
 			$('#copy_site').html(data);
+<<<<<<< local
+			// Add all for search sites
+			data = '<option value="all"  selected="selected">All</option>' + data;
+			$('#srchSites').html(data);
+=======
+>>>>>>> other
 		});
 	},	
 	
