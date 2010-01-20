@@ -13,7 +13,7 @@
 
 	require_once(REL(__FILE__, "../functions/inputFuncs.php"));
 	require_once(REL(__FILE__, "../shared/logincheck.php"));
-	Page::header(array('nav'=>$tab.'/'.$nav, 'title'=>''));
+	Page::header(array('nav'=>$tab.'/'.$nav, 'title'=>T("Custom Member Fields")));
 
 	if (isset($_GET["code"])){
 		unset($_SESSION["postVars"]);
