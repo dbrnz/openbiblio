@@ -14,7 +14,7 @@
 	require_once(REL(__FILE__, "../functions/inputFuncs.php"));
 	require_once(REL(__FILE__, "../shared/logincheck.php"));
 	require_once(REL(__FILE__, "../shared/get_form_vars.php"));
-	Page::header(array('nav'=>$tab.'/'.$nav, 'title'=>''));
+	Page::header(array('nav'=>$tab.'/'.$nav, 'title'=>T("Add custom member field")));
 
 ?>
 

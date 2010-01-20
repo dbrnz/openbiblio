@@ -90,9 +90,16 @@ class Settings {
 		
 		$options = array();
 		if ($s['type'] == 'select') {
-			# FIXME - handle other selects
-			if ($s['name'] == 'locale') {
+			switch ($s['type_data']) {
+			case 'locales':
 				$options = Localize::getLocales();
+				break;
+			case 'sites':
+				$sites = new Sites;
+				$options = $sites->getSelect();
+				break;
+			case 'default':
+				Fatal::internalError("Unknown select type in settings");
 			}
 			if ($s['name'] == 'library_name') {
 			  $sites = new Sites;
