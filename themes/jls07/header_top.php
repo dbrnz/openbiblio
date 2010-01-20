@@ -3,15 +3,12 @@
  * See the file COPYRIGHT.html for more details.
  */
 
-		### following needed since this is included from within a class method -- Fred
-		global $nav, $tab, $focus_form_name, $focus_form_field;
-		
-		if(empty($_SESSION['current_site'])) $_SESSION['current_site'] = Settings::get('library_name');
-		
+	### following needed since this is included from within a class method -- Fred
+	global $nav, $tab, $focus_form_name, $focus_form_field;
 ?>
 <!DOCTYPE html
-		PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 
@@ -25,16 +22,14 @@ if (Settings::get('charset') != "") { ?>
 
 <title>
 <?php
-	$sit = new Sites;
-	$lib = $sit->getOne($_SESSION['current_site']);
-	//echo H(Settings::get('library_name'));
-	echo H($lib[name]);
+	echo H(Settings::get('library_name'));
+	if($params['title']) {
+		echo ': '.H($params['title']);
+	}
 ?>
 </title>
 
-<!-- jQuery kernal, needed for all that follows -->
 <script src="../shared/jquery/jquery.js" type="text/javascript"></script>
-<!-- home-grown add-ons to the jQuery library, feel free to add your own -->
 <script src="../shared/jsLib.js" type="text/javascript"></script>
 
 <script language="JavaScript">

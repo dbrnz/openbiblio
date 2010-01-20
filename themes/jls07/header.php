@@ -3,8 +3,7 @@
  * See the file COPYRIGHT.html for more details.
  */
 
-//	include($params['theme_dir']."/header_top.php");
-	include(REL(__FILE__,"/header_top.php"));
+	include(REL(__FILE__,"header_top.php"));
 ?>
 
 <!-- **************************************************************************************
@@ -17,7 +16,7 @@
 <div id="sidebar">
 	<h3 class="staff_head">
 			<?php
-			echo "$lib[name]:<br />Staff Interface";
+			echo Settings::get('library_name').":<br />Staff Interface";
 			?>
 	</h3>
 	<br />
@@ -30,10 +29,10 @@
 
 	<div id="footer">
 		<a href="http://obiblio.sourceforge.net/">
-			<img src="../images/powered_by_openbiblio.gif" width="125" height="44" border="0" />
+			<img src="../images/powered_by_openbiblio.gif" width="125" height="44" border="0" alt="Powered by OpenBiblio" />
 		</a>
 		<br />
-		Powered by OpenBiblio version <?php echo H(OBIB_CODE_VERSION);?><br />
+		Version: <?php echo H(OBIB_CODE_VERSION);?><br />
 		OpenBiblio is free software, copyright by its authors.<br />
 		Get <a href="../COPYRIGHT.html">more information</a>.
 	</div>
@@ -43,3 +42,11 @@
 		 * beginning of main body
 		 **************************************************************************************-->
 <div id="content">
+<?php
+if (isset($params['title']) && $params['title'] != '') {
+	# $params['title'] should be coming from the translation system, allow HTML
+	echo '<h3>'.$params['title'].'</h3>';
+}
+if (isset($_REQUEST['msg'])) {
+	echo '<div class="msg">'.H($_REQUEST['msg']).'</div>';
+}
