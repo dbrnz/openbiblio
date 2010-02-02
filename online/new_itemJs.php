@@ -88,7 +88,7 @@ ni = {
 
 		// search form functions
     $('.criteria').bind('change',null,ni.enableSrchBtn);
-    $('#manualBtn').bind('click',null,ni.doShowOne);
+    $('#manualBtn').bind('click',null,ni.doShowEmptyOne);
     
 		$('#quitBtn').bind('click',null,ni.doAbandon);
 		$('#retryBtn').bind('click',null,ni.doBackToSrch);
@@ -458,8 +458,8 @@ ni = {
 					  	data = hitData;
 					  });
 					});
-					$('#biblioBtn').bind('click',null,ni.doBackToSrch);
-					$('#biblioBtn2').bind('click',null,ni.doBackToSrch);
+					//$('#biblioBtn').bind('click',null,ni.doBackToSrch);
+					//$('#biblioBtn2').bind('click',null,ni.doBackToSrch);
 					ni.doShowOne(data);
 				}
 			} // else
@@ -480,6 +480,9 @@ ni = {
 		});
 	},
 
+	doShowEmptyOne: function (e) {
+	  ni.doShowOne(null);
+	},
 	doShowOne: function (data){
 	  $('#searchDiv').hide();
 		// assure all are visible at start
@@ -504,10 +507,13 @@ ni = {
 //				$(this).parent().parent().hide().addClass('hidden');
 //			}
 //		});
-		
-		ni.setCallNmbr(data);
-		ni.setCollection(data);
+		if (data != null){
+			ni.setCallNmbr(data);
+			ni.setCollection(data);
+		}
 
+		$('#biblioBtn').bind('click',null,ni.doBackToSrch);
+		$('#biblioBtn2').bind('click',null,ni.doBackToSrch);
 		ni.doStriping();
 		$('#choiceDiv').hide();
 		$('#selectionDiv').show();
