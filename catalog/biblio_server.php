@@ -636,7 +636,7 @@ class SrchDb {
 		echo "{'barcdNmbr':'" . sprintf("%07s",$CopyNmbr) . "'}";
 	  break;
 
-	case 'getBarcdNmbr2':
+	case 'getBarcdNmbr':
 		require_once(REL(__FILE__, "../model/Copies.php"));
 		$copies = new Copies;
 		echo "{'barcdNmbr':'". $copies->getNewBarCode($_SESSION[item_barcode_width]). "'}";

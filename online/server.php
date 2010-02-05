@@ -80,7 +80,7 @@ switch ($_REQUEST[mode]){
 		break;
 
   #-.-.-.-.-.-.-.-.-.-.-.-.-
-	case 'getBarcdNmbr2':
+	case 'getNewBarcd':
 		require_once(REL(__FILE__, "../model/Copies.php"));
 		$copies = new Copies;
 		echo "{'barcdNmbr':'". $copies->getNewBarCode($_SESSION[item_barcode_width]). "'}";

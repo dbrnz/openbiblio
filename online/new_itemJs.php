@@ -258,7 +258,7 @@ ni = {
 //		});
 //	},
 	doGetBarcdNmbr: function () {
-		$.getJSON(ni.url,{'mode':'getBarcdNmbr2','bibid':bs.biblio.bibid}, function(jsonInpt){
+		$.getJSON(ni.url,{'mode':'getNewBarcd'}, function(jsonInpt){
 		  $('#copyTbl #barcode_nmbr').val(jsonInpt.barcdNmbr);
 		});
 	},
