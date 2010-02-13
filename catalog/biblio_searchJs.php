@@ -47,8 +47,8 @@ bs = {
 		});
 		$('#srchByBarcd').bind('click',null,bs.doBarcdSearch);
 		$('#srchByPhrase').bind('click',null,bs.doPhraseSearch);
-		$('#searchBarcd').bind('change',null,bs.enableSrchBtns);
-		$('#searchText').bind('change',null,bs.enableSrchBtns);
+		$('#searchBarcd').bind('keyup',null,bs.checkSrchByBarcdBtn);
+		$('#searchText').bind('keyup',null,bs.checkSrchByPhraseBtn);
 
 		// for the search results section
 		$('#addNewBtn').bind('click',null,bs.makeNewCopy);
@@ -154,17 +154,36 @@ bs = {
 	//------------------------------
 	initWidgets: function () {
 	},
-
+	checkSrchByPhraseBtn: function () {
+		var txtLen = this.value;
+		if (txtLen.length > 0) {
+			$('.srchByPhraseBttn').css('color', bs.srchBtnBgClr);
+			$('.srchByPhraseBttn').enable();
+		} else {
+			bs.srchBtnBgClr = $('#srchByBarcd').css('color');
+			$('.srchByPhraseBttn').css('color', '#888888');
+			$('.srchByPhraseBttn').disable();
+		}		
+	},
+	checkSrchByBarcdBtn: function () {
+		var txtLen = this.value;
+		if (txtLen.length > 0) {
+			$('.srchByBarcdBtn').css('color', bs.srchBtnBgClr);
+			$('.srchByBarcdBtn').enable();
+		} else {
+			bs.srchBtnBgClr = $('#srchByBarcd').css('color');
+			$('.srchByBarcdBtn').css('color', '#888888');
+			$('.srchByBarcdBtn').disable();
+		}
+	},
 	disableSrchBtns: function () {
-	  bs.srchBtnBgClr = $('#srchByBarcd').css('color');
-	  $('.srchBtn').css('color', '#888888');
-		$('.srchBtn').disable();
-	},
-	enableSrchBtns: function () {
-	  $('.srchBtn').css('color', bs.srchBtnBgClr);
-		$('.srchBtn').enable();
-	},
-	
+		bs.srchBtnBgClr = $('#srchByBarcd').css('color');
+		//$('.srchByBarcdBtn').css('color', '#888888');
+		$('.srchByBarcdBtn').disable();
+		bs.srchBtnBgClr = $('#srchByBarcd').css('color');
+		//$('.srchByPhraseBttn').css('color', '#888888');
+		$('.srchByPhraseBttn').disable();		
+	},	
 	resetForms: function () {
 	  //console.log('resetting Search Form');
 	  $('#crntMbrDiv').hide();
@@ -176,8 +195,7 @@ bs = {
 	  $('#copyEditorDiv').hide();
 	  bs.multiMode = false;
 	  bs.disableSrchBtns();
-	},
-	
+	},	
 	rtnToSrch: function () {
   	$('tbody#biblio').html('');
   	$('tbody#copies').html('');
