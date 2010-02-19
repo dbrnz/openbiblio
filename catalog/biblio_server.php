@@ -26,6 +26,8 @@
 		$libraryName  = Settings::get('library_name');
 		if(is_numeric($libraryName)){
 			$_SESSION['current_site'] = Settings::get('library_name');
+		} elseif(isset($_COOKIE['OpenBiblioSiteID'])) {
+			$_SESSION['current_site'] = $_COOKIE['OpenBiblioSiteID'];
 		} else {
 			$_SESSION['current_site'] = 1;
 		}
@@ -337,7 +339,8 @@ class SrchDb {
 		$copies->setCustomFields($copyid, $custom);		
 		
 		$this->db->unlock();
-		return T('Update completed');
+		// Changed this to nothing, so any message/output is taken as an error message - LJ
+		return;
 	}
 	## ========================= ##
 	function deleteCopy($bibid,$copyid) {
@@ -526,7 +529,7 @@ class SrchDb {
 							$params = '{"tag":"245","suf":"a"},
 								{"tag":"245","suf":"b"}'; 
 							break;
-			case 'author': 		$type = 'phrase';
+			case 'author': 		$type = 'words';
 								$params ='{"tag":"100","suf":"a"},
 								{"tag":"245","suf":"c"}'; 
 							break;
@@ -650,7 +653,7 @@ class SrchDb {
 
 	case 'chkBarcdForDupe':
 	  $copies = new Copies;
-	  if ($copies->isDuplicateBarcd($_REQUEST[barcode_nmbr],NULL))
+	  if ($copies->isDuplicateBarcd($_REQUEST[barcode_nmbr],$_REQUEST[copyid]))
 			echo "Barcode $_REQUEST[barcode_nmbr]: ". T("Barcode number already in use.");
 		break;
 		
@@ -678,9 +681,12 @@ class SrchDb {
 	case 'updateCopy':
 	  $theDb = new SrchDB;
 	  $copies = new Copies;
-	  if ($copies->isDuplicateBarcd($_POST[barcode_nmbr], $_POST[copyid])) return;
-		echo $theDb->updateCopy($_REQUEST[bibid],$_REQUEST[copyid]);
-		break;
+	  if ($copies->isDuplicateBarcd($_POST[barcode_nmbr], $_POST[copyid])) {
+		echo T("Cannot save item: the barcode is already in use");
+		return;
+	  }	  
+	  echo $theDb->updateCopy($_REQUEST[bibid],$_REQUEST[copyid]);
+	  break;
 
 	case 'yupdateCopy':
 	  $copies = new Copies;
